@@ -15,8 +15,12 @@
     </resultMap>
 
     <select id="getByUserName" parameterType="String" resultMap="BloggerResult">
-		SELECT * FROM t_blogger WHERE userName=#{userName}
+		SELECT * FROM t_blogger WHERE userName=#{userName};
 	</select>
+
+    <select id="find" resultMap="BloggerResult">
+        SELECT * FROM t_blogger WHERE id=1;
+    </select>
 
 
 </mapper> 

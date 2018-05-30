@@ -5,6 +5,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,7 +15,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/blog.css">
     <script src="${pageContext.request.contextPath}/static/bootstrap3/js/jquery-1.11.2.min.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/static/bootstrap3/js/bootstrap.min.js" type="text/javascript"></script>
-    <title>博主主页</title>
+    <title>伍记备忘录</title>
     <style type="text/css">
         body{
             padding-top: 10px;
@@ -28,9 +29,6 @@
         <div class="col-md-4">
             <div align="left" ><font color="black" size="6"> 伍记备忘录 </font>
             </div>
-        </div>
-        <div class="col-md-8">
-            <iframe style="float: right;" width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&num=5"></iframe>
         </div>
     </div>
 
@@ -53,7 +51,7 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li><a href="#"><font color="black"><strong>关于博主</strong></font></a></li>
-                            <li><a href="#"><font color="black"><strong>本站源码下载</strong></font></a></li>
+                            <li><a href="#"><font color="black"><strong>备忘录的由来</strong></font></a></li>
                         </ul>
                         <form class="navbar-form navbar-right" role="search">
                             <div class="form-group">
@@ -108,36 +106,21 @@
                     博主信息
                 </div>
                 <div class="user_image">
-                    <img src="${pageContext.request.contextPath}/static/userImages/me.jpg"/>
+                    <img src="${pageContext.request.contextPath}/static/userImages/${blogger.imageName}"/>
                 </div>
-                <div class="nickName">vole</div>
-                <div class="userSign">(知识改变命运，技术改变世界)</div>
+                <div class="nickName">${blogger.nickName}</div>
+                <div class="slogan">${blogger.slogan}</div>
             </div>
 
             <div class="data_list">
                 <div class="data_list_title">
-                    <img src="${pageContext.request.contextPath}/static/images/byType_icon.png"/>
-                    按日志类别
+                    <img src="${pageContext.request.contextPath}/static/images/byType_icon.png"/>按日志类别
                 </div>
                 <div class="datas">
                     <ul>
-
-                        <li><span><a href="/index.html?typeId=1">Java核心基础(1)</a></span></li>
-
-                        <li><span><a href="/index.html?typeId=2">Mysql(1)</a></span></li>
-
-                        <li><span><a href="/index.html?typeId=3">Tomcat(1)</a></span></li>
-
-                        <li><span><a href="/index.html?typeId=10">jsoup(1)</a></span></li>
-
-                        <li><span><a href="/index.html?typeId=7">shiro(1)</a></span></li>
-
-                        <li><span><a href="/index.html?typeId=9">webservice(2)</a></span></li>
-
-                        <li><span><a href="/index.html?typeId=4">IT之路(3)</a></span></li>
-
-                        <li><span><a href="/index.html?typeId=5">随心生活(2)</a></span></li>
-
+                        <c:forEach var="blogTypeCount" items="${blogTypeCountList }">
+                            <li><span><a href="#">${blogTypeCount.typeName}(${blogTypeCount.blogCount})</a></span></li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>
@@ -146,38 +129,26 @@
 
             <div class="data_list">
                 <div class="data_list_title">
-                    <img src="${pageContext.request.contextPath}/static/images/byDate_icon.png"/>
-                    按日志日期
+                    <img src="${pageContext.request.contextPath}/static/images/byDate_icon.png"/>按日志日期
                 </div>
                 <div class="datas">
                     <ul>
-
-                        <li><span><a href="/index.html?releaseDateStr=2016年02月">2016年02月(11)</a></span></li>
-
-                        <li><span><a href="/index.html?releaseDateStr=2016年01月">2016年01月(1)</a></span></li>
-
+                        <c:forEach var="blogCount" items="${blogCountList }">
+                            <li><span><a href="#">${blogCount.releaseDateStr }(${blogCount.blogCount })</a></span></li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>
 
             <div class="data_list">
                 <div class="data_list_title">
-                    <img src="${pageContext.request.contextPath}/static/images/link_icon.png"/>
-                    友情链接
+                    <img src="${pageContext.request.contextPath}/static/images/link_icon.png"/>友情链接
                 </div>
                 <div class="datas">
                     <ul>
-
-                        <li><span><a href="http://www.java1234.com/" target="_blank">Java知识分享网</a></span></li>
-
-                        <li><span><a href="http://pan.java1234.com/" target="_blank">百度云搜索引擎</a></span></li>
-
-                        <li><span><a href="http://www.easyicon.net/" target="_blank">小图标下载</a></span></li>
-
-                        <li><span><a href="http://tieba.baidu.com/f?kw=java" target="_blank">Java贴吧</a></span></li>
-
-                        <li><span><a href="http://www.uugai.com/" target="_blank">免费logo在线制作</a></span></li>
-
+                        <c:forEach var="link" items="${linkList }">
+                        <li><span><a href="${link.linkUrl}" target="_blank">${link.linkName}</a></span></li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>
@@ -189,7 +160,7 @@
         <div class="col-md-12" >
             <div align="center" style="padding-top: 120px" >
                 <span style="float: left;">Powered by <a  href="http://wuvole.com" target="_blank">伍记备忘录</a> V1.0</span>
-                Copyright © 2018-20?? 伍记 版权所有
+                Copyright © 2018 伍记 版权所有
             </div>
         </div>
     </div>

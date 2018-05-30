@@ -11,3 +11,8 @@ wuvole.com(待开发ing......)
 *.css linguist-language=Java
 *.html linguist-language=Java
 ```
+
+解决failed to push some refs to git?
+由于远程仓库与本地仓库存在差异，需要两者进行合并
+
+git pull --rebase origin master
