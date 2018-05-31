@@ -3,6 +3,7 @@ package com.vole.dao;
 import com.vole.entity.Blog;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 编写者： vole
@@ -15,5 +16,46 @@ public interface BlogDao {
      * 根据日期分月分组查询
      * @return Blog
      */
-     List<Blog> countList();
+    List<Blog> countList();
+
+    /**
+     * 分页查询博客
+     * @param map map
+     * @return list
+     */
+    List<Blog> list(Map<String, Object> map);
+
+    /**
+     * 获取总记录数
+     * @param map map
+     * @return 总记录数
+     */
+    Long getTotal(Map<String, Object> map);
+
+    /**
+     * 根据 id 查询博客
+     * @param id
+     * @return
+     */
+    Blog findById(Integer id);
+
+    /**
+     * 更新博客
+     * @param blog
+     */
+    Integer update(Blog blog);
+
+    /**
+     * 获取上一个博客
+     * @param id
+     * @return
+     */
+     Blog getLastBlog(Integer id);
+
+    /**
+     * 获取下一个博客
+     * @param id
+     * @return
+     */
+     Blog getNextBlog(Integer id);
 }

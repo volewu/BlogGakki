@@ -14,7 +14,7 @@
         SELECT
             t2.id,
             t2.typeName,
-            COUNT( t1.id ) AS blogCount
+            COUNT(t1.id) AS blogCount
         FROM
             t_blog t1
             RIGHT JOIN t_blogType t2 ON t1.typeId = t2.id
@@ -22,6 +22,12 @@
             t2.typeName
         ORDER BY
             t2.orderNo;
+    </select>
+
+    <select id="findById" parameterType="Integer" resultMap="BlogTypeResult">
+        SELECT *
+        FROM t_blogtype
+        WHERE id = #{id}
     </select>
 
 </mapper> 

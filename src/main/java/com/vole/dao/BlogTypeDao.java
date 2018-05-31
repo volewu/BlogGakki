@@ -16,4 +16,11 @@ public interface BlogTypeDao {
      * @return BlogType
      */
     List<BlogType> countList();
+
+    /**
+     * 根据 id 查找类型
+     * @param id id
+     * @return BlogType
+     */
+    BlogType findById(Integer id);
 }

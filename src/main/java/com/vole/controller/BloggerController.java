@@ -9,6 +9,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -40,5 +41,19 @@ public class BloggerController {
             request.setAttribute("errorInfo", "用户名或者密码错误！");
             return "login";
         }
+    }
+
+    /**
+     * 关于在下
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/aboutMe")
+    public ModelAndView aboutMe()throws Exception{
+        ModelAndView mav=new ModelAndView();
+        mav.addObject("pageTitle", "关于在下");
+        mav.addObject("mainPage", "foreground/blogger/info.jsp");
+        mav.setViewName("mainTemp");
+        return mav;
     }
 }

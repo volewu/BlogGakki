@@ -13,19 +13,73 @@
         <result property="content" column="content"/>
         <result property="keyWord" column="keyWord"/>
 
-        <association property="blogType" column="typeId" select="com.vole.dao.BlogTypeDao.findById"></association>
+        <association property="blogType" column="typeId"
+                     select="com.vole.dao.BlogTypeDao.findById"></association>
     </resultMap>
 
     <select id="countList" resultMap="BlogResult">
         SELECT
-            DATE_FORMAT( releaseDate, '%Y年%m月' ) AS releaseDateStr,
-            COUNT( * ) AS blogCount
+            DATE_FORMAT(releaseDate, '%Y年%m月') AS releaseDateStr,
+            COUNT(*)                           AS blogCount
         FROM
             t_blog
         GROUP BY
-            DATE_FORMAT( releaseDate, '%Y年%m月' )
+            DATE_FORMAT(releaseDate, '%Y年%m月')
         ORDER BY
-            DATE_FORMAT( releaseDate, '%Y年%m月' ) DESC;
+            DATE_FORMAT(releaseDate, '%Y年%m月') DESC;
+    </select>
+
+    <select id="list" parameterType="Map" resultMap="BlogResult">
+        SELECT * FROM t_blog
+        <where>
+            <if test="typeId!=null and typeId!=''">
+                and typeId=#{typeId}
+            </if>
+            <if test="releaseDateStr!=null and releaseDateStr!='' ">
+                and DATE_FORMAT(releaseDate,'%Y年%m月')=#{releaseDateStr}
+            </if>
+        </where>
+        ORDER BY releaseDate DESC
+        <if test="start!=null and size!=null">
+            LIMIT #{start},#{size}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="Integer" resultType="Long">
+        SELECT count(*)
+        FROM t_blog
+        <where>
+            <if test="typeId!=null and typeId!=''">
+                and typeId=#{typeId}
+            </if>
+            <if test="releaseDateStr!=null and releaseDateStr!='' ">
+                and DATE_FORMAT(releaseDate,'%Y年%m月')=#{releaseDateStr}
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" parameterType="Integer" resultMap="BlogResult">
+        SELECT *
+        FROM t_blog
+        WHERE id = #{id}
+    </select>
+
+    <update id="update" parameterType="Blog">
+        update t_blog
+        <set>
+            <if test="clickHit!=null">
+                clickHit=#{clickHit},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="getLastBlog" parameterType="Integer" resultMap="BlogResult">
+        SELECT * FROM t_blog WHERE id&lt;#{id} ORDER BY id DESC LIMIT 1;
+    </select>
+
+    <select id="getNextBlog" parameterType="Integer" resultMap="BlogResult">
+        SELECT * FROM t_blog WHERE id&gt;#{id} ORDER BY id ASC LIMIT 1;
     </select>
 
 </mapper> 
