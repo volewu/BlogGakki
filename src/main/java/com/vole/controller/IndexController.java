@@ -48,6 +48,7 @@ public class IndexController {
         map.put("size", pageBean.getPageSize());
         map.put("typeId", typeId);
         map.put("releaseDateStr", releaseDateStr);
+        // TODO: 2018/6/1 主页显示选择图片，现在在 jsp 上注释掉了，后期在集合 markdown 一起弄
         List<Blog> blogList = blogService.list(map);
         for (Blog blog : blogList) {
             List<String> imageList = blog.getImageList();

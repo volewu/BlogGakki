@@ -10,7 +10,6 @@ public class PageUtil {
 
     /**
      * 生成分页代码
-     *
      * @param targetUrl   目标地址
      * @param totalNum    总记录数
      * @param currentPage 当前页

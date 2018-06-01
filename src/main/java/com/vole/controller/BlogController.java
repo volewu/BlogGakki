@@ -29,11 +29,10 @@ public class BlogController {
 
     /**
      * 请求博客详细信息
-     *
-     * @param id
-     * @param request
-     * @return
-     * @throws Exception
+     * @param id 接受传过来的 id 参数
+     * @param request 请求
+     * @return ModelAndView
+     * @throws Exception s
      */
     @RequestMapping("/articles/{id}")
     public ModelAndView details(@PathVariable("id") Integer id, HttpServletRequest request) throws Exception {
@@ -60,10 +59,9 @@ public class BlogController {
 
     /**
      * 获取上一篇博客和下一篇博客
-     *
-     * @param lastBlog
-     * @param nextBlog
-     * @param projectContext
+     * @param lastBlog 上一篇博客
+     * @param nextBlog 下一篇博客
+     * @param projectContext 请求地址
      * @return
      */
     private String getUpAndDownPageCode(Blog lastBlog, Blog nextBlog, String projectContext) {

@@ -192,7 +192,7 @@ function checkForm(){
 	</DIV>
 </form>
 <div style="text-align:center;padding-top: 30px">
-Copyright © 2018-20?? 伍记 版权所有
+Copyright © 2018 伍记 版权所有
 </div>
 </body>
 </html>
