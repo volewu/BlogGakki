@@ -57,4 +57,11 @@ public interface BlogService {
      * @return
      */
     Blog getNextBlog(Integer id);
+
+    /**
+     * 添加博客
+     * @param blog
+     * @return
+     */
+    Integer add(Blog blog);
 }

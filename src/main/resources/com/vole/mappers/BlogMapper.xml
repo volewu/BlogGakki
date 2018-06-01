@@ -75,11 +75,24 @@
     </update>
 
     <select id="getLastBlog" parameterType="Integer" resultMap="BlogResult">
-        SELECT * FROM t_blog WHERE id&lt;#{id} ORDER BY id DESC LIMIT 1;
+        SELECT *
+        FROM t_blog
+        WHERE id &lt; #{id}
+        ORDER BY id DESC
+        LIMIT 1;
     </select>
 
     <select id="getNextBlog" parameterType="Integer" resultMap="BlogResult">
-        SELECT * FROM t_blog WHERE id&gt;#{id} ORDER BY id ASC LIMIT 1;
+        SELECT *
+        FROM t_blog
+        WHERE id &gt; #{id}
+        ORDER BY id ASC
+        LIMIT 1;
     </select>
+
+    <insert id="add" parameterType="Blog">
+        INSERT INTO t_blog
+        VALUES (NULL, #{title}, #{summary}, now(), 0, #{content}, #{blogType.id}, #{keyWord})
+    </insert>
 
 </mapper> 

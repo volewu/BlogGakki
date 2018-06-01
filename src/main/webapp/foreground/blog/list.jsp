@@ -21,7 +21,11 @@
                 <li style="margin-bottom: 30px">
                     <span class="date"><a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html"><fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy年MM月dd日"/></a></span>
                     <span class="title"><a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html">${blog.title }</a></span>
-                    <span class="summary">摘要: ${blog.summary }...</span>
+                    <span class="summary" id="doc-content">
+                        摘要: ${blog.summary }...
+                        <%-- todo: 后期更改为 editor-md --%>
+                         <textarea style="display:none;" placeholder="markdown语言">${blog.summary }</textarea>
+                    </span>
                     <%--<span class="img">--%>
 					  		<%--<c:forEach var="image" items="${blog.imageList }">--%>
                                 <%--<a href="/blog/articles/52.html">${image}</a>--%>
@@ -44,3 +48,21 @@
         </ul>
     </nav>
 </div>
+
+<script type="text/javascript">
+    editormd.markdownToHTML("content");
+
+    var testEditor;
+    $(function () {
+        testEditor = editormd.markdownToHTML("doc-content", {//注意：这里是上面DIV的id
+            htmlDecode: "style,script,iframe",
+            emoji: true,
+            taskList: true,
+            tocm: true,
+            tex: true, // 默认不解析
+            flowChart: true, // 默认不解析
+            sequenceDiagram: true, // 默认不解析
+            codeFold: true
+        });
+    });
+</script>

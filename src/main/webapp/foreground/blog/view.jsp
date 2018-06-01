@@ -21,6 +21,7 @@
             发布时间：『 <fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>』&nbsp;&nbsp;博客类别：${blog.blogType.typeName }&nbsp;&nbsp;阅读(${blog.clickHit })
         </div>
         <div class="blog_content">
+            <%--todo: 等待换成 editor-md--%>
             ${blog.content }
         </div>
         <div class="blog_keyWord">

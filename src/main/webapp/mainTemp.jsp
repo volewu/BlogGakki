@@ -9,17 +9,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/blog.css">
-    <script src="${pageContext.request.contextPath}/static/bootstrap3/js/jquery-1.11.2.min.js"
-            type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/static/bootstrap3/js/bootstrap.min.js"
-            type="text/javascript"></script>
     <title>${pageTitle }</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/blog.css">
+    <script src="${pageContext.request.contextPath}/static/bootstrap3/js/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/static/bootstrap3/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/editor-md/lib/marked.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/editor-md/lib/prettify.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/editor-md/lib/raphael.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/editor-md/lib/underscore.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/editor-md/lib/sequence-diagram.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/editor-md/lib/flowchart.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/editor-md/lib/jquery.flowchart.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/editor-md/js/editormd.min.js"></script>
+
     <style type="text/css">
         body {
             padding-top: 10px;

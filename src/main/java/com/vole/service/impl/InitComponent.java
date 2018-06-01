@@ -36,7 +36,7 @@ public class InitComponent implements ApplicationContextAware, ServletContextLis
         refreshSystem(application);
     }
 
-    private void refreshSystem(ServletContext application) {
+    public void refreshSystem(ServletContext application) {
         BloggerService bloggerService = (BloggerService) applicationContext.getBean("bloggerService");
         Blogger blogger = bloggerService.find();// 获取博主信息
         blogger.setPassword(null);// 让密码为空
