@@ -1,15 +1,18 @@
 package com.vole.controller;
 
 import com.vole.entity.Blog;
+import com.vole.lucene.BlogIndex;
 import com.vole.service.BlogService;
 import com.vole.util.StringUtil;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +29,7 @@ public class BlogController {
     @Resource
     private BlogService blogService;
 
+    private BlogIndex blogIndex=new BlogIndex();
 
     /**
      * 请求博客详细信息
@@ -78,6 +82,20 @@ public class BlogController {
             pageCode.append("<p>下一篇：<a href='" + projectContext + "/blog/articles/" + nextBlog.getId() + ".html'>" + nextBlog.getTitle() + "</a></p>");
         }
         return pageCode.toString();
+    }
+
+
+    @RequestMapping("/q")
+    public ModelAndView search(@RequestParam(value = "q",required = false) String q)throws Exception{
+        ModelAndView mav=new ModelAndView();
+        mav.addObject("pageTitle", "搜索关键字'"+q+"'结果页面");
+        mav.addObject("mainPage", "foreground/blog/result.jsp");
+        List<Blog> blogList=blogIndex.searchBlog(q);
+        mav.addObject("blogList", blogList);
+        mav.addObject("q", q);
+        mav.addObject("resultTotal", blogList.size());
+        mav.setViewName("mainTemp");
+        return mav;
     }
 }
 

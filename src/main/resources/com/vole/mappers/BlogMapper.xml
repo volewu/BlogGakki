@@ -90,7 +90,8 @@
         LIMIT 1;
     </select>
 
-    <insert id="add" parameterType="Blog">
+  <!-- useGeneratedKeys="true" keyProperty="id" 创建时返回 id  -->
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="Blog">
         INSERT INTO t_blog
         VALUES (NULL, #{title}, #{summary}, now(), 0, #{content}, #{blogType.id}, #{keyWord})
     </insert>

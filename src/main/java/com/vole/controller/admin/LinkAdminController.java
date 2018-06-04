@@ -38,11 +38,11 @@ public class LinkAdminController {
     /**
      * 根据条件分页查询帖子友情链接
      *
-     * @param page
-     * @param rows
-     * @param response
-     * @return
-     * @throws Exception
+     * @param page     页数
+     * @param rows     大小
+     * @param response 响应
+     * @return null
+     * @throws Exception n
      */
     @RequestMapping("/list")
     public String list(@RequestParam(value = "page", required = false) String page,
@@ -65,10 +65,11 @@ public class LinkAdminController {
 
     /**
      * 添加或者修改帖子友情链接
-     * @param link
-     * @param response
-     * @return
-     * @throws Exception
+     *
+     * @param link     实体
+     * @param response 响应
+     * @return null
+     * @throws Exception n
      */
     @RequestMapping("/save")
     public String save(Link link, HttpServletResponse response) throws Exception {
@@ -90,10 +91,11 @@ public class LinkAdminController {
 
     /**
      * 删除友情链接
-     * @param ids
-     * @param response
-     * @return
-     * @throws Exception
+     *
+     * @param ids      参数
+     * @param response 响应
+     * @return null
+     * @throws Exception n
      */
     @RequestMapping("/delete")
     public String delete(@RequestParam(value = "ids") String ids, HttpServletResponse response) throws Exception {
@@ -107,4 +109,5 @@ public class LinkAdminController {
         ResponseUtil.write(response, result);
         return null;
     }
+
 }

@@ -26,6 +26,24 @@
             }
         }
 
+        function closeTab(title) {
+            if ($("#tabs").tabs('exists', title)) {
+                $("#tabs").tabs('close', title);
+            }
+        }
+
+        /*刷新当前 tabs*/
+        function refreshTab() {
+            var currTab = self.parent.$("#tabs").tabs("getSelected");
+            var url = $(currTab.panel('options').content).attr('src');
+            self.parent.$("#tabs").tabs('update',{
+                tab:currTab,
+                options:{
+                    content:'<iframe frameborder="0" scrolling="yes" style="width:100%;height:100%" src="'+url+'"></iframe>'
+                }
+            });
+        }
+
     </script>
 </head>
 <body class="easyui-layout">

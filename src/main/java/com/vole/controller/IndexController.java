@@ -6,10 +6,6 @@ import com.vole.service.BlogService;
 import com.vole.util.PageUtil;
 import com.vole.util.StringUtil;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,19 +46,19 @@ public class IndexController {
         map.put("releaseDateStr", releaseDateStr);
         // TODO: 2018/6/1 主页显示选择图片，现在在 jsp 上注释掉了，后期在集合 markdown 一起弄
         List<Blog> blogList = blogService.list(map);
-        for (Blog blog : blogList) {
-            List<String> imageList = blog.getImageList();
-            String blogInfo = blog.getContent();
-            Document doc = Jsoup.parse(blogInfo);
-            Elements jpgs = doc.select("img[src$=.jpg]");
-            for (int i = 0; i < jpgs.size(); i++) {
-                Element jpg = jpgs.get(i);
-                imageList.add(jpg.toString());
-                if (i == 2) {
-                    break;
-                }
-            }
-        }
+//        for (Blog blog : blogList) {
+//            List<String> imageList = blog.getImageList();
+//            String blogInfo = blog.getContent();
+//            Document doc = Jsoup.parse(blogInfo);
+//            Elements jpgs = doc.select("img[src$=.jpg]");
+//            for (int i = 0; i < jpgs.size(); i++) {
+//                Element jpg = jpgs.get(i);
+//                imageList.add(jpg.toString());
+//                if (i == 2) {
+//                    break;
+//                }
+//            }
+//        }
         mav.addObject("blogList", blogList);
         mav.addObject("pageTitle", "伍记备忘录");
         StringBuffer param = new StringBuffer();

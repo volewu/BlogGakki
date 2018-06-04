@@ -2,7 +2,9 @@ package com.vole.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
 import com.vole.entity.Blog;
+import com.vole.lucene.BlogIndex;
 import com.vole.service.BlogService;
+import com.vole.service.impl.InitComponent;
 import com.vole.util.DateUtil;
 import com.vole.util.ResponseUtil;
 
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.ContextLoader;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -31,19 +34,27 @@ public class BlogAdminController {
     @Resource
     private BlogService blogService;
 
+    @Resource
+    private InitComponent initComponent;
+
+    private BlogIndex blogIndex = new BlogIndex();
+
     @RequestMapping("/save")
-    public String save(Blog blog, HttpServletResponse response)throws Exception{
+    public String save(Blog blog, HttpServletResponse response) throws Exception {
         int resultTotal; // 操作的记录条数
-        if (blog.getId() == null)  // 添加
+        if (blog.getId() == null) { // 添加
             resultTotal = blogService.add(blog);
-        else  // 修改
+            blogIndex.addIndex(blog);
+        } else { // 修改
             resultTotal = blogService.update(blog);
+        }
         JSONObject result = new JSONObject();
         if (resultTotal > 0) {
             result.put("success", true);
         } else {
             result.put("success", false);
         }
+        initComponent.refreshSystem(ContextLoader.getCurrentWebApplicationContext().getServletContext());
         ResponseUtil.write(response, result);
         return null;
     }
@@ -52,7 +63,6 @@ public class BlogAdminController {
     @ResponseBody
     public Map<String, Object> editormdPic(@RequestParam(value = "editormd-image-file", required = false) MultipartFile file,
                                            HttpServletResponse response) throws Exception {
-//        Map<String, Object> resultMap = new HashMap<>();
         JSONObject result = new JSONObject();
         String fileName = file.getOriginalFilename();// 获取文件名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));// 获取文件的后缀

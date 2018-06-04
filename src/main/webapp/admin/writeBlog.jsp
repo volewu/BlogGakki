@@ -23,7 +23,7 @@
         function submitData(){
             var title=$("#title").val();
             var blogTypeId=$("#blogTypeId").combobox("getValue");
-            var content = $('.editormd-markdown-textarea').val();
+            var content = $("#content").val();
             var keyWord=$("#keyWord").val();
 
             if(title==null || title==''){
@@ -37,7 +37,7 @@
                     'content':content,'summary':content.substr(0,155),'keyWord':keyWord},function(result){
                     if(result.success){
                         alert("博客发布成功！");
-                        resultValue();
+                        window.parent.refreshTab();
                     }else{
                         alert("博客发布失败！");
                     }
@@ -45,13 +45,6 @@
             }
         }
 
-        function resultValue(){
-            $("#title").val("");
-            $("#blogTypeId").combobox("setValue","");
-            var c =  $('.editormd-markdown-textarea').val();
-            c.setContent("");
-            $("#keyWord").val("");
-        }
     </script>
 </head>
 <body style="margin: 10px">
@@ -79,7 +72,7 @@
             <td valign="top">博客内容：</td>
             <td>
                 <div id="my-editormd" style="width:100%;height:500px;">
-                    <textarea class="editormd-markdown-textarea" name="content"
+                    <textarea class="editormd-markdown-textarea" name="content" id="content"
                               style="display:none;"></textarea>
                     <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
                     <textarea class="editormd-html-textarea" name="html"></textarea>
