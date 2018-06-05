@@ -48,7 +48,7 @@
         </if>
     </select>
 
-    <select id="getTotal" parameterType="Integer" resultType="Long">
+    <select id="getTotal" parameterType="Map" resultType="Long">
         SELECT count(*)
         FROM t_blog
         <where>
@@ -120,5 +120,9 @@
     <delete id="delete" parameterType="Integer">
         DELETE FROM t_blog WHERE id=#{id}
     </delete>
+
+    <select id="getBlogByTypeId" parameterType="Integer" resultType="Integer">
+        select count(*) from t_blog where typeId=#{typeId}
+    </select>
 
 </mapper> 

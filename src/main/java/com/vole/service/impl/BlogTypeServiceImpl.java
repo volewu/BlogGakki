@@ -7,6 +7,7 @@ import com.vole.service.BlogTypeService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -23,5 +24,30 @@ public class BlogTypeServiceImpl implements BlogTypeService {
 
     public List<BlogType> countList() {
         return blogTypeDao.countList();
+    }
+
+    @Override
+    public List<BlogType> list(Map<String, Object> map) {
+        return blogTypeDao.list(map);
+    }
+
+    @Override
+    public Long getTotal(Map<String, Object> map) {
+        return blogTypeDao.getTotal(map);
+    }
+
+    @Override
+    public Integer add(BlogType blogType) {
+        return blogTypeDao.add(blogType);
+    }
+
+    @Override
+    public Integer update(BlogType blogType) {
+        return blogTypeDao.update(blogType);
+    }
+
+    @Override
+    public Integer delete(Integer id) {
+        return blogTypeDao.delete(id);
     }
 }

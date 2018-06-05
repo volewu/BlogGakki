@@ -30,4 +30,36 @@
         WHERE id = #{id}
     </select>
 
+    <select id="list" parameterType="Map" resultMap="BlogTypeResult">
+        SELECT * FROM t_blogtype
+        <if test="start!=null and size!=null">
+            LIMIT #{start},#{size}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="Map" resultType="Long">
+        SELECT count(*) FROM t_blogtype
+    </select>
+    
+    <insert id="add" parameterType="BlogType">
+        INSERT INTO t_blogtype VALUES (null,#{typeName},#{orderNo})
+    </insert>
+
+    <update id="update" parameterType="BlogType">
+        UPDATE  t_blogtype
+        <set>
+            <if test="typeName!=null and typeName!='' ">
+                typeName=#{typeName},
+            </if>
+            <if test="orderNo!=null ">
+                orderNo=#{orderNo},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM t_blogtype WHERE id=#{id}
+    </delete>
+
 </mapper> 
