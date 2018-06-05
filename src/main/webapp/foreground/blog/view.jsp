@@ -32,7 +32,7 @@
                 </c:when>
                 <c:otherwise>
                     <c:forEach var="keyWord" items="${keyWords }">
-                        &nbsp;&nbsp;&nbsp;&nbsp;<a href="#" target="_blank">${keyWord }</a>&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/blog/q.html?q=${keyWord}" target="_blank">${keyWord }</a>&nbsp;&nbsp;
 
                     </c:forEach>
                 </c:otherwise>

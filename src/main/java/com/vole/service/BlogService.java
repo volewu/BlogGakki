@@ -64,4 +64,11 @@ public interface BlogService {
      * @return
      */
     Integer add(Blog blog);
+
+    /**
+     * 删除
+     * @param id 博客 id
+     * @return 一条记录
+     */
+    Integer delete(Integer id);
 }

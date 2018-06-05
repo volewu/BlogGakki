@@ -1,5 +1,8 @@
 package com.vole.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.vole.util.CustomDateSerializer;
+
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,6 +53,7 @@ public class Blog {
         this.summary = summary;
     }
 
+    @JsonSerialize(using = CustomDateSerializer.class)
     public Date getReleaseDate() {
         return releaseDate;
     }

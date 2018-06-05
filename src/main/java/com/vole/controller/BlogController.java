@@ -29,11 +29,12 @@ public class BlogController {
     @Resource
     private BlogService blogService;
 
-    private BlogIndex blogIndex=new BlogIndex();
+    private BlogIndex blogIndex = new BlogIndex();
 
     /**
      * 请求博客详细信息
-     * @param id 接受传过来的 id 参数
+     *
+     * @param id      接受传过来的 id 参数
      * @param request 请求
      * @return ModelAndView
      * @throws Exception s
@@ -49,7 +50,7 @@ public class BlogController {
             String arr[] = keyWords.split(" ");
             mav.addObject("keyWords", StringUtil.filterWhite(Arrays.asList(arr)));
         } else {
-            mav.addObject("keyWords",null);
+            mav.addObject("keyWords", null);
         }
         mav.addObject("blog", blog);
         mav.addObject("pageCode", this.getUpAndDownPageCode(blogService.getLastBlog(id),
@@ -63,10 +64,11 @@ public class BlogController {
 
     /**
      * 获取上一篇博客和下一篇博客
-     * @param lastBlog 上一篇博客
-     * @param nextBlog 下一篇博客
+     *
+     * @param lastBlog       上一篇博客
+     * @param nextBlog       下一篇博客
      * @param projectContext 请求地址
-     * @return
+     * @return 博客首页的上下篇博客
      */
     private String getUpAndDownPageCode(Blog lastBlog, Blog nextBlog, String projectContext) {
         StringBuffer pageCode = new StringBuffer();
@@ -86,16 +88,57 @@ public class BlogController {
 
 
     @RequestMapping("/q")
-    public ModelAndView search(@RequestParam(value = "q",required = false) String q)throws Exception{
-        ModelAndView mav=new ModelAndView();
-        mav.addObject("pageTitle", "搜索关键字'"+q+"'结果页面");
+    public ModelAndView search(@RequestParam(value = "q", required = false) String q,
+                               @RequestParam(value = "page", required = false) String page, HttpServletRequest request) throws Exception {
+        // 搜索页数，可以放入配置文件中去
+        int pageSize = 2;
+        if (StringUtil.isEmpty(page)) page = "1";
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("pageTitle", "搜索关键字'" + q + "'结果页面");
         mav.addObject("mainPage", "foreground/blog/result.jsp");
-        List<Blog> blogList=blogIndex.searchBlog(q);
-        mav.addObject("blogList", blogList);
+        List<Blog> blogList = blogIndex.searchBlog(q);
+        Integer toIndex = blogList.size() >= Integer.parseInt(page) * pageSize ? Integer.parseInt(page) * pageSize : blogList.size();
+        mav.addObject("blogList", blogList.subList((Integer.parseInt(page) - 1) * pageSize, toIndex));
+        mav.addObject("pageCode", this.genUpAndDownPageCode(Integer.parseInt(page), blogList.size(), q, pageSize,
+                request.getServletContext().getContextPath()));
         mav.addObject("q", q);
         mav.addObject("resultTotal", blogList.size());
         mav.setViewName("mainTemp");
         return mav;
+    }
+
+    /**
+     * 获取上一页，下一页代码
+     *
+     * @param page           当前页
+     * @param totalNum       总搜索数
+     * @param q              搜索参数
+     * @param pageSize       页数
+     * @param projectContext 地址
+     * @return 博客搜索的上下页
+     */
+    private String genUpAndDownPageCode(Integer page, Integer totalNum, String q, Integer pageSize, String projectContext) {
+        long totalPage = totalNum % pageSize == 0 ? totalNum / pageSize : totalNum / pageSize + 1;
+        StringBuffer pageCode = new StringBuffer();
+        if (totalPage == 0) {
+            return "";
+        } else {
+            pageCode.append("<nav>");
+            pageCode.append("<ul class='pager'>");
+            if (page > 1) {
+                pageCode.append("<li><a href='" + projectContext + "/blog/q.html?page=" + (page - 1) + "&q=" + q + "'>上一页</a></li>");
+            } else {
+                pageCode.append("<li class='disabled'><a href='#'>上一页</a></li>");
+            }
+            if (page < totalPage) {
+                pageCode.append("<li><a href='" + projectContext + "/blog/q.html?page=" + (page + 1) + "&q=" + q + "'>下一页</a></li>");
+            } else {
+                pageCode.append("<li class='disabled'><a href='#'>下一页</a></li>");
+            }
+            pageCode.append("</ul>");
+            pageCode.append("</nav>");
+        }
+        return pageCode.toString();
     }
 }
 

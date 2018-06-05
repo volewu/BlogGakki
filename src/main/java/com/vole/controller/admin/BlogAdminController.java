@@ -2,11 +2,13 @@ package com.vole.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
 import com.vole.entity.Blog;
+import com.vole.entity.PageBean;
 import com.vole.lucene.BlogIndex;
 import com.vole.service.BlogService;
 import com.vole.service.impl.InitComponent;
 import com.vole.util.DateUtil;
 import com.vole.util.ResponseUtil;
+import com.vole.util.StringUtil;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import org.springframework.web.context.ContextLoader;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -47,6 +51,7 @@ public class BlogAdminController {
             blogIndex.addIndex(blog);
         } else { // 修改
             resultTotal = blogService.update(blog);
+            blogIndex.updateIndex(blog);
         }
         JSONObject result = new JSONObject();
         if (resultTotal > 0) {
@@ -59,6 +64,14 @@ public class BlogAdminController {
         return null;
     }
 
+    /**
+     * editormd 上传图片
+     *
+     * @param file     图片参数
+     * @param response 响应
+     * @return json 数据
+     * @throws Exception e
+     */
     @RequestMapping("/uploadimg")
     @ResponseBody
     public Map<String, Object> editormdPic(@RequestParam(value = "editormd-image-file", required = false) MultipartFile file,
@@ -81,6 +94,53 @@ public class BlogAdminController {
         }
         ResponseUtil.write(response, result);
         return null;
+    }
+
+    @RequestMapping("/list")
+    @ResponseBody
+    public Map<String, Object> list(@RequestParam(value = "page", required = false) String page,
+                                    @RequestParam(value = "rows", required = false) String rows,
+                                    HttpServletResponse response, Blog s_blog) throws Exception {
+        PageBean pageBean = new PageBean(Integer.parseInt(page), Integer.parseInt(rows));
+        Map<String, Object> map = new HashMap<>();
+        map.put("title", StringUtil.formatLike(s_blog.getTitle()));
+        map.put("start", pageBean.getStart());
+        map.put("size", pageBean.getPageSize());
+        List<Blog> blogList = blogService.list(map);
+        Long total = blogService.getTotal(map);
+        Map<String, Object> result = new HashMap<>();
+        result.put("rows", blogList);
+        result.put("total", total);
+        return result;
+    }
+
+    /**
+     * 批量删除博客
+     *
+     * @param ids      id 数组
+     * @param response 响应
+     * @return josn 数据
+     * @throws Exception e
+     */
+    @RequestMapping("/delete")
+    public String delete(@RequestParam(value = "ids", required = false) String ids,
+                         HttpServletResponse response) throws Exception {
+        String[] idsStr = ids.split(",");
+        JSONObject result = new JSONObject();
+        for (String anIdsStr : idsStr) {
+            blogService.delete(Integer.parseInt(anIdsStr));
+            blogIndex.deleteIndex(anIdsStr);
+        }
+        initComponent.refreshSystem(ContextLoader.getCurrentWebApplicationContext().getServletContext());
+        result.put("success", true);
+        ResponseUtil.write(response, result);
+        return null;
+    }
+
+    @RequestMapping("/findById")
+    @ResponseBody
+    public Blog findById(@RequestParam(value = "id") String id) throws Exception {
+        return blogService.findById(Integer.parseInt(id));
     }
 
 }

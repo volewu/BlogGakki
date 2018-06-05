@@ -32,6 +32,9 @@
     <select id="list" parameterType="Map" resultMap="BlogResult">
         SELECT * FROM t_blog
         <where>
+            <if test="title!=null and title!=''">
+                and title like #{title}
+            </if>
             <if test="typeId!=null and typeId!=''">
                 and typeId=#{typeId}
             </if>
@@ -49,6 +52,9 @@
         SELECT count(*)
         FROM t_blog
         <where>
+            <if test="title!=null and title!=''">
+                and title like #{title}
+            </if>
             <if test="typeId!=null and typeId!=''">
                 and typeId=#{typeId}
             </if>
@@ -67,8 +73,23 @@
     <update id="update" parameterType="Blog">
         update t_blog
         <set>
+            <if test="title!=null and title!=''">
+                title=#{title},
+            </if>
+            <if test="summary!=null and summary!=''">
+                summary=#{summary},
+            </if>
+            <if test="content!=null and content!=''">
+                content=#{content},
+            </if>
+            <if test="blogType.id!=null">
+                typeId=#{blogType.id},
+            </if>
             <if test="clickHit!=null">
                 clickHit=#{clickHit},
+            </if>
+            <if test="keyWord!=null and keyWord!=''">
+                keyWord=#{keyWord},
             </if>
         </set>
         where id=#{id}
@@ -95,5 +116,9 @@
         INSERT INTO t_blog
         VALUES (NULL, #{title}, #{summary}, now(), 0, #{content}, #{blogType.id}, #{keyWord})
     </insert>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM t_blog WHERE id=#{id}
+    </delete>
 
 </mapper> 
