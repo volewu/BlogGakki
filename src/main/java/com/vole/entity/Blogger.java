@@ -70,4 +70,17 @@ public class Blogger {
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
+
+    @Override
+    public String toString() {
+        return "Blogger{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", profile='" + profile + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", slogan='" + slogan + '\'' +
+                ", imageName='" + imageName + '\'' +
+                '}';
+    }
 }

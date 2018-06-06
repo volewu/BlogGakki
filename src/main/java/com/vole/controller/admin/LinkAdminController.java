@@ -76,15 +76,11 @@ public class LinkAdminController {
         int resultTotal; // 操作的记录条数
         if (link.getId() == null)  // 添加
             resultTotal = linkService.add(link);
-        else  // 修改
+        else
             resultTotal = linkService.update(link);
         JSONObject result = new JSONObject();
-        if (resultTotal > 0) {
-            initComponent.refreshSystem(ContextLoader.getCurrentWebApplicationContext().getServletContext());
-            result.put("success", true);
-        } else {
-            result.put("success", false);
-        }
+        result.put("success", resultTotal > 0);
+        initComponent.refreshSystem(ContextLoader.getCurrentWebApplicationContext().getServletContext());
         ResponseUtil.write(response, result);
         return null;
     }

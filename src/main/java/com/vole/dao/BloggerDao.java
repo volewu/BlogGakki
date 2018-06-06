@@ -19,7 +19,15 @@ public interface BloggerDao {
 
     /**
      * 查找 Blogger
-     * @return 博客内容
+     * @return 博主内容
      */
     Blogger find();
+
+
+    /**
+     * 更新 Blogger
+     * @param blogger 博主内容
+     * @return 一条数据
+     */
+    Integer update(Blogger blogger);
 }

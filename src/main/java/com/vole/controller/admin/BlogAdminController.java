@@ -54,11 +54,7 @@ public class BlogAdminController {
             blogIndex.updateIndex(blog);
         }
         JSONObject result = new JSONObject();
-        if (resultTotal > 0) {
-            result.put("success", true);
-        } else {
-            result.put("success", false);
-        }
+        result.put("success", resultTotal > 0);
         initComponent.refreshSystem(ContextLoader.getCurrentWebApplicationContext().getServletContext());
         ResponseUtil.write(response, result);
         return null;
@@ -92,6 +88,7 @@ public class BlogAdminController {
             result.put("message", "上传失败！");
             e.printStackTrace();
         }
+        initComponent.refreshSystem(ContextLoader.getCurrentWebApplicationContext().getServletContext());
         ResponseUtil.write(response, result);
         return null;
     }
@@ -100,7 +97,7 @@ public class BlogAdminController {
     @ResponseBody
     public Map<String, Object> list(@RequestParam(value = "page", required = false) String page,
                                     @RequestParam(value = "rows", required = false) String rows,
-                                    HttpServletResponse response, Blog s_blog) throws Exception {
+                                    Blog s_blog) throws Exception {
         PageBean pageBean = new PageBean(Integer.parseInt(page), Integer.parseInt(rows));
         Map<String, Object> map = new HashMap<>();
         map.put("title", StringUtil.formatLike(s_blog.getTitle()));
@@ -116,7 +113,6 @@ public class BlogAdminController {
 
     /**
      * 批量删除博客
-     *
      * @param ids      id 数组
      * @param response 响应
      * @return josn 数据

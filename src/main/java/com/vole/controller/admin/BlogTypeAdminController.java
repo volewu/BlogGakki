@@ -6,12 +6,14 @@ import com.vole.entity.BlogType;
 import com.vole.entity.PageBean;
 import com.vole.service.BlogService;
 import com.vole.service.BlogTypeService;
+import com.vole.service.impl.InitComponent;
 import com.vole.util.ResponseUtil;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.ContextLoader;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +36,9 @@ public class BlogTypeAdminController {
 
     @Resource
     private BlogService blogService;
+
+    @Resource
+    private InitComponent initComponent;
 
     /**
      * 分页查询博客类别信息
@@ -74,32 +79,31 @@ public class BlogTypeAdminController {
      */
     @RequestMapping("/save")
     public String save(BlogType blogType, HttpServletResponse response) throws Exception {
-        int resultTotal;
+        int resultTotal=0;
         if (blogType.getId() == null)
             resultTotal = blogTypeService.add(blogType);
         else
             resultTotal = blogTypeService.update(blogType);
         JSONObject result = new JSONObject();
-        if (resultTotal > 0)
-            result.put("success", true);
-        else
-            result.put("success", false);
+        result.put("success", resultTotal > 0);
+        initComponent.refreshSystem(ContextLoader.getCurrentWebApplicationContext().getServletContext());
         ResponseUtil.write(response, result);
         return null;
     }
 
     @RequestMapping("/delete")
     @ResponseBody
-    public Map<String,Object> delete(@RequestParam(value = "ids", required = false) String ids) throws Exception {
-        Map<String,Object> result = new HashMap<>();
+    public Map<String, Object> delete(@RequestParam(value = "ids", required = false) String ids) throws Exception {
+        Map<String, Object> result = new HashMap<>();
         String[] idsStr = ids.split(",");
-        for (String anIds:idsStr) {
+        for (String anIds : idsStr) {
             Integer typeId = Integer.parseInt(anIds);
             if (blogService.getBlogByTypeId(typeId) > 0)
                 result.put("exist", "博客类别下有博客，不能删除！");
             else
                 blogTypeService.delete(typeId);
         }
+        initComponent.refreshSystem(ContextLoader.getCurrentWebApplicationContext().getServletContext());
         result.put("success", true);
         return result;
     }
