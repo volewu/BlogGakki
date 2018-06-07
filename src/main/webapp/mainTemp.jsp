@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/blog.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/editor-md/css/editormd.preview.css"/>
     <script src="${pageContext.request.contextPath}/static/bootstrap3/js/jquery-1.11.2.min.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/static/bootstrap3/js/bootstrap.min.js" type="text/javascript"></script>
 

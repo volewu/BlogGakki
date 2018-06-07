@@ -19,23 +19,32 @@
         <ul>
             <c:forEach var="blog" items="${blogList }">
                 <li style="margin-bottom: 30px">
+                <%--todo: 后期显示更改样式--%>
                     <span class="date"><a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html"><fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy年MM月dd日"/></a></span>
                     <span class="title"><a href="${pageContext.request.contextPath}/blog/articles/${blog.id}.html">${blog.title }</a></span>
-                    <span class="summary" id="doc-content">
-                        摘要: ${blog.summary }...
-                        <%-- todo: 后期更改为 editor-md --%>
+                    <div id="${blog.id}">
                          <textarea style="display:none;" placeholder="markdown语言">${blog.summary }</textarea>
-                    </span>
-                    <%--<span class="img">--%>
-					  		<%--<c:forEach var="image" items="${blog.imageList }">--%>
-                                <%--<a href="/blog/articles/52.html">${image}</a>--%>
-                                <%--&nbsp;&nbsp;--%>
-                            <%--</c:forEach>--%>
-                    <%--</span>--%>
+                    </div>
                     <span class="info">发表于 <fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm"/> 阅读(${blog.clickHit }) </span>
 
                 </li>
                 <hr style="height:5px;border:none;border-top:1px dashed gray;padding-bottom:  10px;" />
+                <script type="text/javascript">
+
+                    var testEditor;
+                    $(function () {
+                        testEditor = editormd.markdownToHTML("${blog.id}", {//注意：这里是上面DIV的id
+                            htmlDecode: "style,script,iframe",
+                            emoji: true,
+                            taskList: true,
+                            tocm: true,
+                            tex: true, // 默认不解析
+                            flowChart: true, // 默认不解析
+                            sequenceDiagram: true, // 默认不解析
+                            codeFold: true
+                        });
+                    });
+                </script>
             </c:forEach>
         </ul>
     </div>
@@ -48,21 +57,3 @@
         </ul>
     </nav>
 </div>
-
-<script type="text/javascript">
-    editormd.markdownToHTML("content");
-
-    var testEditor;
-    $(function () {
-        testEditor = editormd.markdownToHTML("doc-content", {//注意：这里是上面DIV的id
-            htmlDecode: "style,script,iframe",
-            emoji: true,
-            taskList: true,
-            tocm: true,
-            tex: true, // 默认不解析
-            flowChart: true, // 默认不解析
-            sequenceDiagram: true, // 默认不解析
-            codeFold: true
-        });
-    });
-</script>

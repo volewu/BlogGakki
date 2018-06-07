@@ -6,6 +6,7 @@ import com.vole.entity.PageBean;
 import com.vole.lucene.BlogIndex;
 import com.vole.service.BlogService;
 import com.vole.service.impl.InitComponent;
+import com.vole.util.ConstantUtil;
 import com.vole.util.DateUtil;
 import com.vole.util.ResponseUtil;
 import com.vole.util.StringUtil;
@@ -62,7 +63,6 @@ public class BlogAdminController {
 
     /**
      * editormd 上传图片
-     *
      * @param file     图片参数
      * @param response 响应
      * @return json 数据
@@ -77,12 +77,11 @@ public class BlogAdminController {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));// 获取文件的后缀
         String newFileName = DateUtil.getCurrentDateStr() + suffixName;
         try {
-            String UPLOADED_FOLDER = "E:\\githubSample\\BlogGakki\\src\\main\\webapp\\static\\userImages\\";
             FileUtils.copyInputStreamToFile(file.getInputStream(),
-                    new File(UPLOADED_FOLDER + newFileName));
+                    new File(ConstantUtil.UPLOAD_DIR + newFileName));
             result.put("success", 1);
             result.put("message", "上传成功！");
-            result.put("url", "http://localhost:5555/static/userImages/" + newFileName);
+            result.put("url", ConstantUtil.IMAGE_URL + newFileName);
         } catch (Exception e) {
             result.put("success", 0);
             result.put("message", "上传失败！");

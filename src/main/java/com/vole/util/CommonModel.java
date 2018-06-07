@@ -3,7 +3,7 @@ package com.vole.util;
 /**
  * 编写者： vole
  * Time： 2018/6/4.15:25
- * 内容：
+ * 内容：josn 返回实体类
  */
 public class CommonModel {
     private int code;

@@ -11,7 +11,25 @@
     <div class="data_list_title">
         <img src="${pageContext.request.contextPath}/static/images/about_icon.png"/>
         关于博主</div>
-    <div style="padding: 30px">
-        ${blogger.profile }
+    <div style="padding: 30px" id="profile">
+         <textarea style="display:none;" placeholder="markdown语言">${blogger.profile }</textarea>
     </div>
 </div>
+
+<script type="text/javascript">
+    editormd.markdownToHTML("profile");
+
+    var testEditor;
+    $(function () {
+        testEditor = editormd.markdownToHTML("profile", {//注意：这里是上面DIV的id
+            htmlDecode: "style,script,iframe",
+            emoji: true,
+            taskList: true,
+            tocm: true,
+            tex: true, // 默认不解析
+            flowChart: true, // 默认不解析
+            sequenceDiagram: true, // 默认不解析
+            codeFold: true
+        });
+    });
+</script>

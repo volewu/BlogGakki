@@ -65,7 +65,6 @@ public class BloggerAdminController {
 
     /**
      * 修改密码
-     *
      * @param newPassword 传过来的新密码
      * @return json
      * @throws Exception e

@@ -1,6 +1,7 @@
 package com.vole.lucene;
 
 import com.vole.entity.Blog;
+import com.vole.util.ConstantUtil;
 import com.vole.util.DateUtil;
 import com.vole.util.StringUtil;
 
@@ -44,8 +45,6 @@ import java.util.List;
  */
 public class BlogIndex {
 
-    private static String SAVE_DIR = "D://lucene";
-
     private Directory dir = null;
 
     /**
@@ -55,8 +54,7 @@ public class BlogIndex {
      * @throws Exception n
      */
     private IndexWriter getWriter() throws Exception {
-        // TODO: 2018/6/4 发布时，地址改为服务器地址 
-        dir = FSDirectory.open(Paths.get(SAVE_DIR));
+        dir = FSDirectory.open(Paths.get(ConstantUtil.SAVE_LUCENE_DIR));
         SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer();
         IndexWriterConfig config = new IndexWriterConfig(analyzer);
         return new IndexWriter(dir, config);
@@ -119,7 +117,7 @@ public class BlogIndex {
      * @throws Exception e
      */
     public List<Blog> searchBlog(String q) throws Exception {
-        dir = FSDirectory.open(Paths.get(SAVE_DIR));
+        dir = FSDirectory.open(Paths.get(ConstantUtil.SAVE_LUCENE_DIR));
         IndexReader reader = DirectoryReader.open(dir);
         IndexSearcher is = new IndexSearcher(reader);
         BooleanQuery.Builder booleanQuery = new BooleanQuery.Builder();

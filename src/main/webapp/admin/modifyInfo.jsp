@@ -21,29 +21,39 @@
     <script type="text/javascript">
 
         function submitData() {
-            var nickName = $("#nickName").val();
-            var slogan = $("#slogan").val();
-            var profile = $("#profile").val();
-            var imageFile = $("#imageFile").val();
-
-            if (nickName == null || nickName == '') {
-                alert("请输入昵称！");
-            } else if (slogan == null || slogan == '') {
-                alert("请输入个性签名！");
-            } else if (profile == null || profile == '') {
-                alert("请输入个性简介！");
-            } else {
-                $('#form1').submit();
-                <%--$.post("${pageContext.request.contextPath}/admin/blogger/save.do",{'nickName':nickName,--%>
-                    <%--'slogan':slogan,'profile':profile,'imageFile':imageFile},function (result) {--%>
-                    <%--if(result.success){--%>
-                        <%--alert("修改成功！");--%>
-                        <%--window.parent.refreshTab();--%>
-                    <%--}else{--%>
-                        <%--alert("修改失败！");--%>
-                    <%--}--%>
-                <%--},"json");--%>
-            }
+            $('#form1').form("submit",{
+                url:"${pageContext.request.contextPath}/admin/blogger/save.do",
+                onSubmit:function () {
+                    var nickName = $("#nickName").val();
+                    var slogan = $("#slogan").val();
+                    var profile = $("#profile").val();
+                    if (!$(this).form("validate")) {
+                        return false;
+                    }
+                    if (profile == null || profile == '') {
+                        alert("请输入个性简介！");
+                        return false;
+                    }
+                    if (nickName == null || nickName == '') {
+                        alert("请输入昵称！");
+                        return false;
+                    }
+                    if (slogan == null || slogan == '') {
+                        alert("请输入个性签名！");
+                        return false;
+                    }
+                    return true;
+                },
+                success:function (result) {
+                    var result = eval('(' + result + ')');
+                    if (result.success) {
+                        $.messager.alert("系统提示", "修改成功");
+                    } else {
+                        $.messager.alert("系统提示", "修改失败！");
+                        return;
+                    }
+                }
+            });
         }
 
 
@@ -51,8 +61,7 @@
 </head>
 <body style="margin: 10px">
 <div id="p" class="easyui-panel" title="修改个人信息" style="padding: 10px">
-    <form id="form1" action="${pageContext.request.contextPath}/admin/blogger/save.do" method="post"
-          enctype="multipart/form-data">
+    <form id="form1"  method="post" enctype="multipart/form-data">
         <table cellspacing="20px" style="width:100%;">
             <tr>
                 <td width="80px">用户名：</td>
@@ -68,8 +77,7 @@
             </tr>
             <tr>
                 <td>个性签名：</td>
-                <td><input type="text" id="slogan" name="slogan" value="${currentUser.slogan }"
-                           style="width: 400px;"/></td>
+                <td><input type="text" id="slogan" name="slogan" style="width: 400px;"/></td>
             </tr>
             <tr>
                 <td>个人头像：</td>
