@@ -80,11 +80,11 @@ public class BlogAdminController {
             FileUtils.copyInputStreamToFile(file.getInputStream(),
                     new File(ConstantUtil.UPLOAD_DIR + newFileName));
             result.put("success", 1);
-            result.put("message", "上传成功！");
+            result.put("message", ConstantUtil.UPLOAD_SUCCESS);
             result.put("url", ConstantUtil.IMAGE_URL + newFileName);
         } catch (Exception e) {
             result.put("success", 0);
-            result.put("message", "上传失败！");
+            result.put("message", ConstantUtil.UPLOAD_FAIL);
             e.printStackTrace();
         }
         initComponent.refreshSystem(ContextLoader.getCurrentWebApplicationContext().getServletContext());

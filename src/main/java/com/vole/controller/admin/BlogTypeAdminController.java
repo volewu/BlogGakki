@@ -7,6 +7,7 @@ import com.vole.entity.PageBean;
 import com.vole.service.BlogService;
 import com.vole.service.BlogTypeService;
 import com.vole.service.impl.InitComponent;
+import com.vole.util.ConstantUtil;
 import com.vole.util.ResponseUtil;
 
 import org.springframework.stereotype.Controller;
@@ -79,15 +80,15 @@ public class BlogTypeAdminController {
      */
     @RequestMapping("/save")
     public String save(BlogType blogType, HttpServletResponse response) throws Exception {
-        int resultTotal=0;
+        int resultTotal;
         if (blogType.getId() == null)
             resultTotal = blogTypeService.add(blogType);
         else
             resultTotal = blogTypeService.update(blogType);
         JSONObject result = new JSONObject();
         result.put("success", resultTotal > 0);
-        initComponent.refreshSystem(ContextLoader.getCurrentWebApplicationContext().getServletContext());
         ResponseUtil.write(response, result);
+        initComponent.refreshSystem(ContextLoader.getCurrentWebApplicationContext().getServletContext());
         return null;
     }
 
@@ -99,7 +100,7 @@ public class BlogTypeAdminController {
         for (String anIds : idsStr) {
             Integer typeId = Integer.parseInt(anIds);
             if (blogService.getBlogByTypeId(typeId) > 0)
-                result.put("exist", "博客类别下有博客，不能删除！");
+                result.put("exist", ConstantUtil.DELETE_EXIST);
             else
                 blogTypeService.delete(typeId);
         }

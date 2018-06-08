@@ -53,7 +53,7 @@ public class BloggerAdminController {
         if (!imageFile.isEmpty()) {
             String filePath = request.getServletContext().getRealPath("/");
             String imageName = DateUtil.getCurrentDateStr() + "." + imageFile.getOriginalFilename().split("\\.")[1];
-            imageFile.transferTo(new File(filePath + "static/userImages/" + imageName)); //在项目目录中看不到，放在 tomcat 的内存中了
+            imageFile.transferTo(new File(filePath + "static/userImages/" + imageName)); //在项目开发时在目录中看不到，放在 tomcat 的内存中了，发布之后就可以了
             blogger.setImageName(imageName);
         }
         int resultTotal = bloggerService.update(blogger);

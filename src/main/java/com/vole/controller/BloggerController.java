@@ -1,7 +1,7 @@
 package com.vole.controller;
 
 import com.vole.entity.Blogger;
-import com.vole.service.BloggerService;
+import com.vole.util.ConstantUtil;
 import com.vole.util.MD5Util;
 
 import org.apache.shiro.SecurityUtils;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -24,9 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/blogger")
 public class BloggerController {
 
-    @Resource
-    private BloggerService bloggerService;
-
     @RequestMapping("/login")
     public String login(Blogger blogger, HttpServletRequest request) {
         UsernamePasswordToken token = new UsernamePasswordToken(blogger.getUserName(),
@@ -38,20 +34,20 @@ public class BloggerController {
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("blogger", blogger);
-            request.setAttribute("errorInfo", "用户名或者密码错误！");
+            request.setAttribute("errorInfo", ConstantUtil.LOGIN_ERROR_INFO);
             return "login";
         }
     }
 
     /**
      * 关于在下
-     * @return
-     * @throws Exception
+     * @return 模型与视图
+     * @throws Exception e
      */
     @RequestMapping("/aboutMe")
     public ModelAndView aboutMe()throws Exception{
         ModelAndView mav=new ModelAndView();
-        mav.addObject("pageTitle", "关于在下");
+        mav.addObject("pageTitle", ConstantUtil.ABOUT_ME);
         mav.addObject("mainPage", "foreground/blogger/info.jsp");
         mav.setViewName("mainTemp");
         return mav;

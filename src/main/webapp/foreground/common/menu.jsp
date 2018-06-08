@@ -39,7 +39,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="${pageContext.request.contextPath}/blogger/aboutMe.html"><font color="black"><strong>关于在下</strong></font></a></li>
-                        <li><a href="https://github.com/volewu/BlogGakki"><font color="black"><strong>备忘录的下载</strong></font></a></li>
+                        <li><a href="https://github.com/volewu/BlogGakki" target="_blank"><font color="black"><strong>备忘录的下载</strong></font></a></li>
                     </ul>
                     <form action="${pageContext.request.contextPath}/blog/q.html" class="navbar-form navbar-right" role="search" method="post" onsubmit="return checkData()">
                         <div class="form-group">

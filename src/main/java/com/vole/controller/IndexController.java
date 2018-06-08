@@ -3,6 +3,7 @@ package com.vole.controller;
 import com.vole.entity.Blog;
 import com.vole.entity.PageBean;
 import com.vole.service.BlogService;
+import com.vole.util.ConstantUtil;
 import com.vole.util.PageUtil;
 import com.vole.util.StringUtil;
 
@@ -44,23 +45,9 @@ public class IndexController {
         map.put("size", pageBean.getPageSize());
         map.put("typeId", typeId);
         map.put("releaseDateStr", releaseDateStr);
-        // TODO: 2018/6/1 主页显示选择图片，现在在 jsp 上注释掉了，后期在集合 markdown 一起弄
         List<Blog> blogList = blogService.list(map);
-//        for (Blog blog : blogList) {
-//            List<String> imageList = blog.getImageList();
-//            String blogInfo = blog.getContent();
-//            Document doc = Jsoup.parse(blogInfo);
-//            Elements jpgs = doc.select("img[src$=.jpg]");
-//            for (int i = 0; i < jpgs.size(); i++) {
-//                Element jpg = jpgs.get(i);
-//                imageList.add(jpg.toString());
-//                if (i == 2) {
-//                    break;
-//                }
-//            }
-//        }
         mav.addObject("blogList", blogList);
-        mav.addObject("pageTitle", "伍记备忘录");
+        mav.addObject("pageTitle", ConstantUtil.BLOG_NAME);
         StringBuffer param = new StringBuffer();
         if (StringUtil.isNotEmpty(typeId))
             param.append("typeId=" + typeId);
