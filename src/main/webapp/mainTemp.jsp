@@ -29,17 +29,16 @@
 
     <style type="text/css">
         body {
-            padding-top: 10px;
+            padding-top: 0px;
             padding-bottom: 40px;
         }
     </style>
 </head>
 <body>
-<div class="container">
 
-    <jsp:include page="/foreground/common/head.jsp"/>
+<jsp:include page="/foreground/common/menu.jsp"/>
 
-    <jsp:include page="/foreground/common/menu.jsp"/>
+<div class="container" style="padding-top: 100px">
 
 
     <div class="row">
@@ -51,8 +50,8 @@
         <div class="col-md-3">
             <div class="data_list">
                 <div class="data_list_title">
-                    <img src="${pageContext.request.contextPath}/static/images/user_icon.png"/>
-                    博主信息
+                    <%--<img src="${pageContext.request.contextPath}/static/images/user_icon.png"/>--%>
+                   About Me
                 </div>
                 <div class="user_image">
                     <img src="${pageContext.request.contextPath}/static/userImages/${blogger.imageName}"/>
@@ -63,7 +62,7 @@
 
             <div class="data_list">
                 <div class="data_list_title">
-                    <img src="${pageContext.request.contextPath}/static/images/byType_icon.png"/>按日志类别
+                    Tags
                 </div>
                 <div class="datas">
                     <ul>
@@ -79,7 +78,7 @@
 
             <div class="data_list">
                 <div class="data_list_title">
-                    <img src="${pageContext.request.contextPath}/static/images/byDate_icon.png"/>按日志日期
+                  Archives
                 </div>
                 <div class="datas">
                     <ul>
@@ -94,7 +93,7 @@
 
             <div class="data_list">
                 <div class="data_list_title">
-                    <img src="${pageContext.request.contextPath}/static/images/link_icon.png"/>友情链接
+                    Links
                 </div>
                 <div class="datas">
                     <ul>
