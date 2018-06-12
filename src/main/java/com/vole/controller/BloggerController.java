@@ -1,8 +1,10 @@
 package com.vole.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.vole.entity.Blogger;
 import com.vole.util.ConstantUtil;
 import com.vole.util.MD5Util;
+import com.vole.util.ResponseUtil;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 编写者： Wu
@@ -51,5 +54,14 @@ public class BloggerController {
         mav.addObject("mainPage", "foreground/blogger/info.jsp");
         mav.setViewName("mainTemp");
         return mav;
+    }
+
+    @RequestMapping("/gakki")
+    public String getPassword(HttpServletResponse response)throws Exception{
+        JSONObject result = new JSONObject();
+        String password = "123";
+        result.put("success", MD5Util.md5(password, "vole"));
+        ResponseUtil.write(response, result);
+        return null;
     }
 }

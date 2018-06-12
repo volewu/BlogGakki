@@ -34,7 +34,7 @@
         }
     </style>
 </head>
-<body>
+<body background="${pageContext.request.contextPath}/static/userImages/${blogger.imageName}">
 
 <jsp:include page="/foreground/common/menu.jsp"/>
 

@@ -14,7 +14,7 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 
-    <!-- 配置数据源 -->
+    <!-- 配置数据源 todo:发布时修改为服务器 mysql -->
     <bean id="dataSource"
           class="com.alibaba.druid.pool.DruidDataSource"
           p:url="jdbc:mysql://localhost:3306/db_blog?useUnicode=true&amp;characterEncoding=UTF-8"

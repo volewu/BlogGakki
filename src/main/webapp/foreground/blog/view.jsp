@@ -11,10 +11,6 @@
 
 
 <div class="data_list">
-    <div class="data_list_title">
-        <img src="/static/images/blog_show_icon.png"/>
-        博客信息
-    </div>
     <div>
         <div class="blog_title"><h3><strong>${blog.title }</strong></h3></div>
         <div class="blog_info">

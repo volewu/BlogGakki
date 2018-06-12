@@ -25,7 +25,7 @@
     <div class="col-md-12 ">
         <nav class="navbar navbar-default navbar-fixed-top ">
 
-            <div class="navbar-collapse collapse" style="text-align: center;">
+            <div class="navbar-collapse collapse" style="text-align: center;background-color: rgba(0,0,0,.075);">
                 <ul class="nav navbar-nav" style="display: inline-block;float: none;">
                     <li><a class="navbar-brand"
                            href="${pageContext.request.contextPath}/index.html"><font color="black"><strong>Home</strong></font></a>
