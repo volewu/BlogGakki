@@ -9,7 +9,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <div class="data_list">
     <div class="data_list_title">
-        关于在下</div>
+        关于在下 | 伍记备忘录</div>
     <div style="padding: 30px" id="profile">
          <textarea style="display:none;" placeholder="markdown语言">${blogger.profile }</textarea>
     </div>

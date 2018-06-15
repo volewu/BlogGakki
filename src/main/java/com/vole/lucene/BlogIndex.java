@@ -118,6 +118,7 @@ public class BlogIndex {
      */
     public List<Blog> searchBlog(String q) throws Exception {
         dir = FSDirectory.open(Paths.get(ConstantUtil.SAVE_LUCENE_DIR));
+        System.err.println(dir);
         IndexReader reader = DirectoryReader.open(dir);
         IndexSearcher is = new IndexSearcher(reader);
         BooleanQuery.Builder booleanQuery = new BooleanQuery.Builder();

@@ -7,6 +7,7 @@
     <resultMap type="BlogType" id="BlogTypeResult">
         <result property="id" column="id"/>
         <result property="typeName" column="typeName"/>
+        <result property="blogCount" column="blogCount"/>
         <result property="orderNo" column="orderNo"/>
     </resultMap>
 
@@ -17,9 +18,9 @@
             COUNT(t1.id) AS blogCount
         FROM
             t_blog t1
-            RIGHT JOIN t_blogType t2 ON t1.typeId = t2.id
+            RIGHT JOIN t_blogtype t2 ON t1.typeId = t2.id
         GROUP BY
-            t2.typeName
+            t2.typeName, t2.id
         ORDER BY
             t2.orderNo;
     </select>
@@ -38,15 +39,16 @@
     </select>
 
     <select id="getTotal" parameterType="Map" resultType="Long">
-        SELECT count(*) FROM t_blogtype
+        SELECT count(*)
+        FROM t_blogtype
     </select>
-    
+
     <insert id="add" parameterType="BlogType">
-        INSERT INTO t_blogtype VALUES (null,#{typeName},#{orderNo})
+        INSERT INTO t_blogtype VALUES (NULL, #{typeName}, #{orderNo})
     </insert>
 
     <update id="update" parameterType="BlogType">
-        UPDATE  t_blogtype
+        UPDATE t_blogtype
         <set>
             <if test="typeName!=null and typeName!='' ">
                 typeName=#{typeName},
@@ -59,7 +61,8 @@
     </update>
 
     <delete id="delete" parameterType="Integer">
-        DELETE FROM t_blogtype WHERE id=#{id}
+        DELETE FROM t_blogtype
+        WHERE id = #{id}
     </delete>
 
 </mapper> 

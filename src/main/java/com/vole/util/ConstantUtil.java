@@ -12,7 +12,7 @@ public class ConstantUtil {
      */
 //    public static final String UPLOAD_DIR = "E:\\JAVAIDE\\apache-tomcat-8.5.29\\webapps\\Blog\\static\\userImages\\";
 
-    public static final String UPLOAD_DIR ="/home/tomcat/apache-tomcat-8.5.30/webapps/Blog/static/userImages";
+    public static final String UPLOAD_DIR ="/home/tomact/apache-tomcat-8.5.30/webapps/Blog/static/userImages/";
 
     /**
      * 图片 url 地址
@@ -22,8 +22,8 @@ public class ConstantUtil {
     /**
      * lucene 索引的保存地址 // TODO: 2018/6/4 发布时，地址改为服务器地址
      */
-//    public static String SAVE_LUCENE_DIR = "D://lucene";
-    public static String SAVE_LUCENE_DIR = "/home/lucene";
+//    public static String SAVE_LUCENE_DIR = "D:\\lucene\\";
+    public static String SAVE_LUCENE_DIR = "/home/lucene/";
 
     /**
      * 备忘录的名字

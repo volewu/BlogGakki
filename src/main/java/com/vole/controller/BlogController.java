@@ -3,6 +3,7 @@ package com.vole.controller;
 import com.vole.entity.Blog;
 import com.vole.lucene.BlogIndex;
 import com.vole.service.BlogService;
+import com.vole.util.ConstantUtil;
 import com.vole.util.PageUtil;
 import com.vole.util.StringUtil;
 
@@ -57,16 +58,15 @@ public class BlogController {
         mav.addObject("pageCode", PageUtil.getUpAndDownPageCode(blogService.getLastBlog(id),
                 blogService.getNextBlog(id),
                 request.getServletContext().getContextPath()));
-        mav.addObject("pageTitle", blog.getTitle());
+        mav.addObject("pageTitle", blog.getTitle() + " | " + ConstantUtil.BLOG_NAME);
         mav.addObject("mainPage", "foreground/blog/view.jsp");
         mav.setViewName("mainTemp");
         return mav;
     }
 
     /**
-     *
-     * @param q 参数
-     * @param page 页数
+     * @param q       参数
+     * @param page    页数
      * @param request 请求
      * @return 模型和视图
      * @throws Exception e
@@ -78,7 +78,7 @@ public class BlogController {
         int pageSize = 5;
         if (StringUtil.isEmpty(page)) page = "1";
         ModelAndView mav = new ModelAndView();
-        mav.addObject("pageTitle", "搜索关键字'" + q + "'结果页面");
+        mav.addObject("pageTitle", "搜索关键字'" + q + "'结果页面"+ " | " + ConstantUtil.BLOG_NAME);
         mav.addObject("mainPage", "foreground/blog/result.jsp");
         List<Blog> blogList = blogIndex.searchBlog(q);
         Integer toIndex = blogList.size() >= Integer.parseInt(page) * pageSize ? Integer.parseInt(page) * pageSize : blogList.size();

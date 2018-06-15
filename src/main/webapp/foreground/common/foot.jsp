@@ -11,14 +11,15 @@
     <div class="col-md-12" >
         <div align="center" style="padding-top: 50px" >
             <%--<span >Powered by <a  href="http://wuvole.com" target="_blank">伍记备忘录</a> V1.0</span>--%>
-            <span>
-                  © 2018 伍记 版权所有
+            <span style="color: white;">
+                 Copyright © 2018 伍记 版权所有
+                <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow" style="color: white;">粤ICP备18045978号-1</a>
             </span>
         </div>
     </div>
 </div>
 
-<div  style="text-align: center;padding-bottom: 20px">
+<div  style="text-align: center;padding-bottom: 20px;color: white;">
     <script async src="${pageContext.request.contextPath}/static/js/busuanzi.pure.mini.js"></script>
 
     <span class="site-uv">

@@ -22,10 +22,12 @@
 
 
 
-- [ ] 畅言的配置 
-- [ ] 前台页面显示优化（现在的有点丑），为前台找个好点的主题
+- [x] 畅言的配置 
+- [x] 前台页面显示优化（现在的有点丑），为前台找个好点的主题
 - [ ] 服务器上 nginx 的配置
-- [ ] 更换网站 icon http://www.faviconer.com/icon/import
+- [x] 更换网站 icon http://www.faviconer.com/icon/import
+- [x] 安装人数访问记录
+- [ ] 配置 404 页面
 ##### V2 版本（开发 ing）：尝试用 SpringBoot 开发
 
 
